@@ -18,7 +18,7 @@ const products = [
         id: generateId(),
         price: 15,
         name: 'Yellow cheese',
-        image:'animal-aquarium-aquatic-coral-deep-21668',
+        image:'2016/03/05/19/24/cheese-1238395_960_720.jpg',
         description: 'Great product realy!',
      },
      {
