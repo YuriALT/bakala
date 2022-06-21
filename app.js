@@ -8,7 +8,8 @@ function addTax(price) {
   return total;
 }
 
-function generateId() {
+
+/* function generateId() {
   // const rand = Math.random();
   // console.log(`rand: ${rand}`);
   // const num = rand * 100000;
@@ -19,42 +20,105 @@ function generateId() {
 
   const time = new Date().getTime();
   return Math.floor(Math.random() * time);
+} */
+
+class Product {
+  constructor(productPrice, productName, productImage, productDescription) {
+    this.price = productPrice;
+    this.name = productName;
+    this.image = productImage;
+    this.description = productDescription;
+    this.id = this.generateId();
+  }
+
+  // for inner use - inside the class
+  generateId() {
+    const time = new Date().getTime();
+    return Math.floor(Math.random() * time);
+  }
+  // for outer use - outside the class
+  getPrice() {
+    return `$${this.price}`;
+  }
+
+  getName() {
+    return `${this.name}`;
+  }
+
+  getImage() {
+    const IMG_PATH = 'https://cdn.pixabay.com/photo/'; // configuration of the project
+    return `${IMG_PATH}${this.image}`;
+  }
+
+  getDescription() {
+    return `${this.description}`;
+  }
+  getId() {
+    return `this.id`;
+  }
+
 }
+const prod1 = new Product(15,
+  'Yellow cheese',
+  '2016/03/05/19/24/cheese-1238395_960_720.jpg',
+  'great product really!'
+);
+console.log(prod1.getPrice());
+console.log(prod1.getName());
+console.log(prod1.getImage());
+console.log(prod1.getDescription());
+console.log(prod1.getId());
 
 const products = [{
     id: 1,
     price: 15,
-    name: 'yellow cheese',
+    name: 'Yellow cheese',
     image: '2016/03/05/19/24/cheese-1238395_960_720.jpg',
     description: 'great product really!',
   },
   {
     id: 2,
     price: 3,
-    name: 'ice cream',
+    name: 'Ice cream',
     image: '2017/04/18/15/10/strawberry-ice-cream-2239377_640.jpg',
     description: 'be careful - very cold',
   },
   {
     id: 3,
     price: 25,
-    name: ' cream',
+    name: 'Cream',
     image: '2017/04/18/15/10/strawberry-ice-cream-2239377_640.jpg',
     description: 'old',
   }
+
 ];
-function getTotalProducts(){
+
+
+function searchProduct() {
+  const searchField = document.getElementById('search-field');
+  const searchTerm = searchField.value.trim();
+
+  const searchResult = products.filter(prod => {
+    return prod.name.toLowerCase().includes(searchTerm.toLowerCase());
+  });
+
+  displayProducts(searchResult);
+}
+
+
+
+function getTotalProducts() {
   const total = document.getElementById('total-products');
   total.innerHTML = products.length;
 }
 
 // take products data and add it into the html of each card
-function displayProducts() {
+function displayProducts(productData) {
   const IMG_PATH = 'https://cdn.pixabay.com/photo/'; // configuration of the project
   const container = document.getElementById('products-container');
   let html = '';
 
-  products.forEach(prod => {
+  productData.forEach(prod => {
     html +=
       `<div class="card" style="width: 18rem;">
               <img src="${IMG_PATH}${prod.image}"
@@ -72,4 +136,4 @@ function displayProducts() {
   getTotalProducts();
 }
 
-displayProducts();
+displayProducts(products);
