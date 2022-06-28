@@ -1,97 +1,4 @@
-function addTax(price) {
-  if (!price || price <= 0 || typeof (price) === 'string') {
-    throw Error('Nothing is for free! please supply a price');
-  }
-
-  const vat = 1.17; // = maam
-  const total = (price * vat).toFixed(2);
-  return total;
-}
-
-
-/* function generateId() {
-  // const rand = Math.random();
-  // console.log(`rand: ${rand}`);
-  // const num = rand * 100000;
-  // console.log(`num: ${num}`);
-  // const floor = Math.floor(num);
-  // console.log(`floor: ${floor}`);
-  // return floor;
-
-  const time = new Date().getTime();
-  return Math.floor(Math.random() * time);
-} */
-
-class Product {
-  constructor(productPrice, productName, productImage, productDescription) {
-    this.price = productPrice;
-    this.name = productName;
-    this.image = productImage;
-    this.description = productDescription;
-    this.id = this.generateId();
-  }
-
-  // for inner use - inside the class
-  generateId() {
-    const time = new Date().getTime();
-    return Math.floor(Math.random() * time);
-  }
-  // for outer use - outside the class
-  getPrice() {
-    return `$${this.price}`;
-  }
-
-  getName() {
-    return `${this.name}`;
-  }
-
-  getImage() {
-    const IMG_PATH = 'https://cdn.pixabay.com/photo/'; // configuration of the project
-    return `${IMG_PATH}${this.image}`;
-  }
-
-  getDescription() {
-    return `${this.description}`;
-  }
-  getId() {
-    return `${this.id}`;
-  }
-
-}
-/* const prod1 = new Product(15,
-  'Yellow cheese',
-  '2016/03/05/19/24/cheese-1238395_960_720.jpg',
-  'great product really!'
-);
-console.log(prod1.getPrice());
-console.log(prod1.getName());
-console.log(prod1.getImage());
-console.log(prod1.getDescription());
-console.log(prod1.getId());
- */
-const products = [
-  new Product(
-    15,
-    'Yellow cheese',
-    '2016/03/05/19/24/cheese-1238395_960_720.jpg',
-    'great product really!'
-  ),
-
-  new Product(
-    3,
-    'Ice cream',
-    '2017/04/18/15/10/strawberry-ice-cream-2239377_640.jpg',
-    'be careful - very cold',
-  ),
-
-  new Product(
-    25,
-    'Cream',
-    '2017/04/18/15/10/strawberry-ice-cream-2239377_640.jpg',
-    'old',
-  ),
-
-];
+import {products} from "./data-modules/productos.js";
 
 
 function searchProduct() {
@@ -104,6 +11,9 @@ function searchProduct() {
 
   displayProducts(searchResult);
 }
+
+const searchButton = document.getElementById('search-btn');
+searchButton.addEventListener('click',searchProduct);
 
 
 
